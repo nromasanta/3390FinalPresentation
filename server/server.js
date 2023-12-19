@@ -32,18 +32,18 @@ app.use(cors())
 // set the schedule 
 // use (0 0 * * *) for this to run only on the daily\
 // use (0 * * * *) for this to run hourly
-// use (* * * * *) to run on the minute, good for testing
+// use (* * * * *) to run on the minute, good for testing <--------------- USED THIS FOR THE DEMO
 // but make sure to set it to daily for deployment
 
 
-cron.schedule('* * * * *', async () => {
+cron.schedule('0 0 * * *', async () => {
     console.log('Start of day detected, running task to genereate game and reset user bets');
-    await determineOutcome();
-    // need to add function to purge anything inside the collection
     // await updateMassive();
+    await determineOutcome();
+    // need to add function to purge anything inside the matches and userbets collection
     await resetMatches();
     await resetUserBets();
-    const randomTeams = await selectRandomTeams();
+    const randomTeams = await selectRandomTeams(); 
     await createDailyMatch(randomTeams); // this function will create two names despite it's singular name
                                         // this function was a pain to make so im not even gonna touch it
 
@@ -58,16 +58,19 @@ cron.schedule('* * * * *', async () => {
 // hour 7pm = 19 
 
 // run before end of day
+// more specific time method
 const j = schedule.scheduleJob({hour: 23, minute:59}, () => {
    console.log("Running outcome calculations");
    determineOutcome();
 });
 
 
-app.use((req, res, next) => {
-  console.log(req.path, req.method)
-  next()
-})
+
+// this was good for logging movement between the routes and the db
+// app.use((req, res, next) => {
+//   console.log(req.path, req.method)
+//   next()
+// })
 
 
 //routes

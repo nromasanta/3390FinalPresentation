@@ -29,7 +29,7 @@ function Userboard() {
 
     <main className="main-content">
       <Navbar callerPage="Userboard" />
-      <div className = "mt-5 min-w-fit"> 
+      <div className = "mt-5 min-w-fit text-2xl"> 
       <h1 className = "text-center font-extrabold text-6xl my-8">Leaderboard</h1>
       {/* Think of mapping like a for loop, where index is the iteration and starts at 0 */}
         {users && users.map((user, index) => (

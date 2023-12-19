@@ -28,11 +28,11 @@ const ProcessVote = ({ match }) => {
 
   // console.log(user.password)
   useEffect(() => {
-    console.log("grounding")
+    // console.log("grounding")
   if (user){    
-    console.log("HI");
+    // console.log("HI");
     if ( user.group1BetStatus ) {
-      console.log("HI");
+      // console.log("HI");
       setVotedForTeam1or2(true);
     }
     if ( user.group2BetStatus ) {
@@ -75,33 +75,33 @@ const ProcessVote = ({ match }) => {
   
         if (responseTeam1.ok && responseTeam2.ok && responseTeam3.ok && responseTeam4.ok) {
           let skillDifference = team1Data.skillIndex - team2Data.skillIndex;
-          let maxSkillDifference = 1000; ///can't be too good otherwise it's a wrap
+          let skillDivisor = 1000; /// initially a limiter, refactored for use in probability calc
           // positive = first team good
           // negative = second team good
-          // The probability is scaled between 0.1 and 0.9 
-          let winProbabilityTeam1 = (skillDifference / maxSkillDifference) / 2;
-          // winProbabilityTeam1 = Math.max(0.1, Math.min(0.9, winProbabilityTeam1)); // Ensuring it stays between 0.1 and 0.9
+       
+          let winProbabilityTeam1 = (skillDifference / skillDivisor) / 2; // not based in math
+        
           let winProbabilityTeam2 = 1 - winProbabilityTeam1;
           oddsTeam1 = 1 / winProbabilityTeam1;
           oddsTeam2 = 1 / winProbabilityTeam2;
           setOddsTeam1(oddsTeam1);
           setOddsTeam2(oddsTeam2);
-          console.log("ods for our first", oddsTeam1, oddsTeam2)
+          console.log("odds for our first", oddsTeam1, oddsTeam2)
           // ----------------------------------------------------------------
           //calculateOdds is not working with team3 and team4, do it here...
            skillDifference = team3Data.skillIndex - team4Data.skillIndex;
-           maxSkillDifference = 1000; ///can't be too good otherwise it's a wrap
+           skillDivisor = 1000; 
           // positive = first team good
           // negative = second team good
-          // The probability is scaled between 0.1 and 0.9 
-          let winProbabilityTeam3 = (skillDifference / maxSkillDifference) / 2;
-          // winProbabilityTeam1 = Math.max(0.1, Math.min(0.9, winProbabilityTeam1)); // Ensuring it stays between 0.1 and 0.9
+         
+          let winProbabilityTeam3 = (skillDifference / skillDivisor) / 2;
+       
           let winProbabilityTeam4 = 1 - winProbabilityTeam3;
           oddsTeam3 = 1 / winProbabilityTeam3;
           oddsTeam4 = 1 / winProbabilityTeam4;
           setOddsTeam3(oddsTeam3);
           setOddsTeam4(oddsTeam4);
-          console.log("in here!", oddsTeam3, oddsTeam4);
+          // console.log("in here!", oddsTeam3, oddsTeam4);
           // ----------------------------------------------------------------
         }
       } catch (error) {
@@ -110,19 +110,19 @@ const ProcessVote = ({ match }) => {
     };
   
     fetchTeamSkillIndices();
-  }, [user, match.team1._id, match.team2._id, match.team3._id, match.team4._id]);
+  }, [user, match.team1._id, match.team2._id, match.team3._id, match.team4._id]); //  if these change
 
 
   // the actual stuff, 
   const handleVote = async (teamId, betAmount, betGroup) => {
-    if (!user) {
+    if (!user) { // gathered from user context
       console.log('User must be logged in to vote.');
       return;
     }
 
    
     try {
-      // Check if the user has already voted in this group to prevent updating the bet
+      //  validate vote
       if (Number(betAmount) > user.points) {
         console.error('Bet amount exceeds your available points.');
         return;

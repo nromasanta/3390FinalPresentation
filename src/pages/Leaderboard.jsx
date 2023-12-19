@@ -29,7 +29,7 @@ function Leaderboard() {
 
     <main className="main-content">
       <Navbar callerPage="Leaderboard" />
-      <div className = "mt-5">
+      <div className = "mt-5 text-2xl">
         {/* Think of mapping like a for loop */}
         {teams && teams.map((team) => (
           <TeamDetails key = {team._id} team = {team} />

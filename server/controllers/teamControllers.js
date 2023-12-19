@@ -10,13 +10,6 @@ const mongoose = require('mongoose')
 
 
 
-
-
-
-
-
-
-
 // get all users
 const getAllTeams = async (req, res) => {
     // const users = await User.find({ username: })
@@ -30,9 +23,7 @@ const getAllTeams = async (req, res) => {
 const getSingleTeam= async (req, res) => {
     const {id} = req.params
 
-    if(!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No such team'})
-    }
+ 
     const team = await Team.findById(id)
 
     if(!team ) { 
@@ -65,10 +56,6 @@ const createTeam = async (req, res) => {
 const deleteTeam = async (req, res) => {
     const {id} = req.params
 
-    if(!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No such team'})
-    }
-
     const team = await Team.findOneAndDelete({_id: id})
 
     if(!team) { 
@@ -84,10 +71,6 @@ const deleteTeam = async (req, res) => {
 const updateTeam = async (req, res) => {
     const {id} = req.params
 
-    if(!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No such team'})
-    }
-
     const team = await Team.findOneAndUpdate({_id: id}, {
         ...req.body
     })
@@ -101,22 +84,21 @@ const updateTeam = async (req, res) => {
 }
 
 // update a team's bets
+
 const updateBets = async (req, res) => {
     const teamId = req.params.id;
     const { betAmount } = req.body; 
-  
+    // try block cause if it isnt populated we gotta bounce
     try {
       const team = await Team.findById(teamId);
-      if (!team) {
-        return res.status(404).json({ message: 'Team not found' });
-      }
+
   
       team.totalBets += betAmount; 
       const updatedTeam = await team.save();
   
       res.status(200).json({
         message: 'Bet updated successfully',
-        team: updatedTeam
+        
       });
     } catch (error) {
       console.error('Error updating bets:', error);

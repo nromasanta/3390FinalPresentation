@@ -3,15 +3,14 @@ import Navbar from '../components/Navbar';
 import usePageNavigator from '../components/usePageNavigator';
 
 function Signup() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState(''); // set empty 
+  const [password, setPassword] = useState(''); 
   const [error, setError] = useState(null);
   const {handleGoToLogin} = usePageNavigator();
-  let points = 500;
-
+  let points = 1000
 
   const handleSignup = async (e) => {
-    e.preventDefault()
+    e.preventDefault() // dont refresh
 
     const user = {username, password, points}
 
@@ -39,9 +38,9 @@ function Signup() {
     <main className="main-content">
       <Navbar callerPage="Signup" />
 
-      <div className= "p-6 rounded-3xl shadow-lg mx-auto w-80 min-h-450">
-        <h1 className = "text-xl text-center mb-4"> <b>Get Started with a Free Account </b></h1>
-        <h4 className = "mb-6 text-center text-sm text-gray-600">Already have an account? 
+      <div className= "p-6 rounded-3xl shadow-lg mx-auto w-80 min-h-450 mt-24">
+        <h1 className = "text-3xl text-center mb-4"> <b>Get Started with a Free Account </b></h1>
+        <h4 className = "mb-6 text-center text-xl text-gray-600">Already have an account? 
         <span className = "text-red-600 cursor-pointer" onClick = {handleGoToLogin}> Log in here</span>
         </h4>
 

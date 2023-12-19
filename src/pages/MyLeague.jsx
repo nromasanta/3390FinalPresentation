@@ -5,6 +5,9 @@ const MyLeague = () => {
 
 
 
+    // XX UNUSED
+
+
     const {data : leagues, isPending, error } = useFetch('http://localhost:8000/leagues');
     const {id} = useParams();
 

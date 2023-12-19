@@ -13,15 +13,6 @@ const getAllLeagues = async (req, res) => {
 const getSingleLeague = async (req, res) => {
     const {id} = req.params
 
-    if(!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No such league'})
-    }
-    const league = await League.findById(id)
-
-    if(!league) { 
-        return res.status(404).json({error: 'League not found'})
-    }
-
     res.status(200).json(league)
 }
 
@@ -46,9 +37,6 @@ const createLeague = async (req, res) => {
 const deleteLeague = async (req, res) => {
     const {id} = req.params
 
-    if(!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No such league'})
-    }
 
     const league = await League.findOneAndDelete({_id: id})
 
@@ -64,10 +52,6 @@ const deleteLeague = async (req, res) => {
 // update a user
 const updateLeague = async (req, res) => {
     const {id} = req.params
-
-    if(!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No such league'})
-    }
 
     const league = await League.findOneAndUpdate({_id: id}, {
         ...req.body

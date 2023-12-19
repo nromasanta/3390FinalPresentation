@@ -1,9 +1,13 @@
 import React, { createContext, useState, useEffect } from 'react';
 import usePageNavigator from './usePageNavigator';
 
-
+//ref
+// https://www.loginradius.com/blog/engineering/react-context-api/
 // since this surrounds our entire application, we initialize 
 // the user context with null
+// use this page to set the state across all pages
+
+
 const UserContext = createContext(null);
 
 export const UserProvider = ({ children }) => {
@@ -35,6 +39,7 @@ export const UserProvider = ({ children }) => {
   // on login, we set the context
   const login = (userData) => {
     setUser(userData);
+    // local storage to keep when leaving
     localStorage.setItem('username', userData.username);
   };
 
@@ -44,6 +49,7 @@ export const UserProvider = ({ children }) => {
     localStorage.removeItem('username');
   };
 
+  // give every page ({children}) access to these values as well as the context
   return (
     <UserContext.Provider value={{ user, login, logout }}>
       {children}

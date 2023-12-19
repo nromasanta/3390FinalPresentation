@@ -10,13 +10,19 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
   try {
-    const match = await Match.findOne({ gameNo: 1 })
+    // find a match, populate each attribute in the doc, execute it
+    // populate is referencing our teams
+    
+
+    const match = await Match.findOne({ gameNo: 1 }) // this could all effectively go in a line but moved for readability
                               .populate('team1')
                               .populate('team2')
                               .populate('team3')
                               .populate('team4')
                               .exec(); 
 
+    // lines above execute then return the match we gathered into the match variable
+    // was every field populated?????
     if (match) {
       // console.log("Found!", match);
       res.json(match); 

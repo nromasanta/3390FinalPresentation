@@ -13,6 +13,7 @@ const getAllUsers = async (req, res) => {
 const getSingleUser = async (req, res) => {
     const {id} = req.params
 
+    // validate id
     if(!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({error: 'No such user'})
     }
@@ -47,6 +48,7 @@ const createUser = async (req, res) => {
 const deleteUser = async (req, res) => {
     const {id} = req.params
 
+    //validate id
     if(!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({error: 'No such user'})
     }
@@ -65,6 +67,8 @@ const deleteUser = async (req, res) => {
 // update a user
 const updateUser = async (req, res) => {
     const { id } = req.params;
+
+    //validate id
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({ error: 'No such user' });
@@ -93,6 +97,8 @@ const updateUser = async (req, res) => {
         if (req.body.group2BetAmount !== undefined) {
             user.group2BetAmount = req.body.group2BetAmount;
         }
+
+        // update points regardless
         if (req.body.points !== undefined) {
             user.points = req.body.points;
         }
@@ -108,21 +114,27 @@ const updateUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
     const { username, password } = req.body;
+    // grab the username and password entered from the request
     try {
+        // wait till we find one
       const user = await User.findOne({ username });
       if (user && user.password === password) { 
+        // repsonse time :)
         res.json({ message: 'Login successful', username });
-      } else {
+      } else { // response time :(
         res.status(401).json({ message: 'Login failed' });
       }
     } catch (error) {
+        // response time :(
       res.status(500).json({ message: 'Server error' });
     }
   };
 
   const getByUsername = async (req,res) => {
-    console.log("inside get by username");
+    // trying diff method gathering from the request body
+    // console.log("inside get by username");
     try {
+        // waiting to find a user, take the username from the request params
         const user = await User.findOne({ username: req.params.username });
         if (user) {
             res.json(user);

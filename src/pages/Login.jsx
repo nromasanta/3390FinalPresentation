@@ -14,8 +14,8 @@ function Login() {
 
   const handleLogin = async () => {
    
-    console.log('Entered username:', username);
-    console.log('Entered password:', password);
+    // console.log('Entered username:', username);
+    // console.log('Entered password:', password);
     try {
 
       const response = await fetch('http://localhost:4000/api/users/login', {
@@ -52,9 +52,9 @@ function Login() {
       <Navbar callerPage="Login" />
 
    
-        <div className= "p-6 rounded-3xl shadow-lg mx-auto w-80">
-        <h1 className = "text-3xl text-center mb-4"><b>Login</b></h1>
-        <h4 className = "mb-6 text-center text-sm text-gray-600">Sign in using username and password.</h4>
+        <div className= "p-6 rounded-3xl shadow-lg mx-auto w-80 mt-24">
+        <h1 className = "text-4xl text-center mb-4"><b>Login</b></h1>
+        <h4 className = "mb-6 text-center text-xl text-gray-600">Sign in using username and password.</h4>
         
         <form>
           <label className = "block text-gray-600 text-sm font-semibold mb-2 p-2">

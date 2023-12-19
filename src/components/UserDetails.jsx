@@ -1,5 +1,8 @@
 import React from 'react';
 
+
+// unused
+
 const UserDetails = ({ user, position }) => {
     return (
         <div className = "border max-w-600 mx-auto">

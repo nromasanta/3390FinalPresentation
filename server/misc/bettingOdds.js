@@ -1,15 +1,19 @@
 const calculateOdds = (skillIndexTeam1, skillIndexTeam2) => {
+    // all of these are totally made up
+    // and not based in any real
+    // calculations of betting ods
+    // but it kind of makes sense?
     const skillDifference = skillIndexTeam1 - skillIndexTeam2;
-    const maxSkillDifference = 1000; //can't be too good otherwise it's a wrap
-  
+    const skillDivisor = 1000; 
     
     // positive = first team good
     // negative = second team good
-    // The probability is scaled between 0.1 and 0.9 
-    let winProbabilityTeam1 = 0.5 + (skillDifference / maxSkillDifference) / 2;
-    // winProbabilityTeam1 = Math.max(0.1, Math.min(0.9, winProbabilityTeam1)); // Ensuring it stays between 0.1 and 0.9
   
- 
+    let winProbabilityTeam1 = (skillDifference / skillDivisor) / 2;
+    
+  
+    // second team just subtract 1 from the probability of team 1, so we can get 
+    // a percentage again
     const winProbabilityTeam2 = 1 - winProbabilityTeam1;
   
     // convert probabilities to odds.
@@ -23,7 +27,7 @@ const calculateOdds = (skillIndexTeam1, skillIndexTeam2) => {
   // Returns the payout amount.
 
   const calculatePayout = (betAmount, odds) => {
-    return Math.round(betAmount * odds);
+    return Math.round(betAmount * odds); // bunch of decimals if we don't ues math.round
   }
   
   module.exports = { calculateOdds, calculatePayout };

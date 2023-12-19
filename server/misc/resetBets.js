@@ -16,7 +16,7 @@ const resetUserBets = async () => {
     console.error('Error resetting user bets:', error);
   }
   try {
-    // console.log("in bhere");
+    // console.log("in here");
     await UserBet.deleteMany({});
     console.log('All bets have been cleared');
   } catch (error) {

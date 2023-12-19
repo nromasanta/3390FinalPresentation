@@ -1,4 +1,10 @@
 const User = require('../models/userModel'); 
+
+
+// note: use this to update a bunch of documents
+// when you're too lazy to open atlas
+
+
 const updateMassive = async () => {
   try {
     // console.log("in bhere");

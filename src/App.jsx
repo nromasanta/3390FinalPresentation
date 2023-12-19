@@ -49,7 +49,7 @@ function App() {
         handleGoToSignup, handleGoToProfile, handleGoToMyLeague, handleGoToGames, handleGoToUserboard} = usePageNavigator();
     //const pages = ['Profile', 'Admin', 'Settings']; // Pages
     return(
-<div className="newContainer h-screen w-screen bg-site-white">
+<div className="newContainer h-screen w-screen">
                     <Routes>
                         {/*--------------- Landing Content ---------------*/}
                         <Route exact path="/" element = {
@@ -68,10 +68,10 @@ function App() {
                                     
                                     <div className="text-center cursor-pointer text-white font-bold text-4xl px-4 py-2 inline-block rounded-lg bg-red-500 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 ease-in-out"
                                     onClick = {handleGoToUserboard}>
-                                        Lead the Leaderboard
+                                        Join Our Leaderboard
                                     </div>
                                     <div className = "mt-2 font-semibold">
-                                        Join CSUB's Premiere Esports League
+                                        CSUB's Premiere Esports Application
                                     </div>
                                     
                                 </div>
